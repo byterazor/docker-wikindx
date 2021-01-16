@@ -9,6 +9,14 @@ The documentation and the Dockerfile are work in progress.
 
 The main git repository for this project is: https://gitea.federationhq.de/byterazor/docker-wikindx
 
+### Restrictions
+
+At the moment only a mysql server within this container can be used.
+*No* support for external database server is available at the moment.
+
+Therefore, the local database is not exposed to the outside and runs
+on *unsecure* default credentials right now!
+
 ## Author
 
 - Dominik Meyer <dmeyer@federationhq.de>
