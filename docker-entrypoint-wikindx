@@ -1,0 +1,10 @@
+#!/bin/bash
+/usr/bin/mysql_install_db -u mysql
+/usr/bin/mysqld_safe --defaults-file=/etc/mysql/mariadb.cnf --basedir=/usr --socket=/var/run/mysqld/mysqld.sock --datadir='/var/lib/mysql' &
+
+if [ ! -d /var/lib/mysql/wikindx6 ] ; then
+  sleep 1
+  mysql -u root < create.sql
+fi
+
+docker-php-entrypoint apache2-foreground
