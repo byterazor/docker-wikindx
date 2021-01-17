@@ -85,8 +85,15 @@ RUN cp wikindx/config.php.dist wikindx/config.php
 COPY create.sql .
 COPY docker-entrypoint-wikindx /usr/local/bin/
 RUN chown www-data.www-data wikindx -R
+
+RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
+RUN sed -i 's/post_max_size.=.*/post_max_size = 100M/' /usr/local/etc/php/php.ini
+RUN sed -i 's/upload_max_filesize.=.*/upload_max_filesize = 100M/' /usr/local/etc/php/php.ini
 RUN echo "mysql.default_socket = /var/run/mysqld/mysqld.sock" >> /usr/local/etc/php/conf.d/docker-php-ext-mysqli.ini
 RUN echo "mysqli.default_socket = /var/run/mysqld/mysqld.sock" >> /usr/local/etc/php/conf.d/docker-php-ext-mysqli.ini
+
+
+
 
 VOLUME ["/var/lib/mysql"]
 VOLUME ["/var/www/html/wikindx"]
