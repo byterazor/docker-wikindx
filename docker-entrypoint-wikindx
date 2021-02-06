@@ -7,4 +7,8 @@ if [ ! -d /var/lib/mysql/wikindx6 ] ; then
   mysql -u root < create.sql
 fi
 
+if [ ! -d /var/www/html/ikindx ]; then
+  mv /home/wikindx /var/www/html/
+fi
+
 docker-php-entrypoint apache2-foreground
