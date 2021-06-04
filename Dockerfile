@@ -11,7 +11,7 @@ RUN docker-php-ext-install gettext && docker-php-ext-enable gettext
 RUN docker-php-ext-install intl && docker-php-ext-enable intl
 RUN docker-php-ext-install zip && docker-php-ext-enable zip
 RUN docker-php-ext-install ldap && docker-php-ext-enable ldap
-RUN wget -O wikindx.tar.bz2 https://sourceforge.net/projects/wikindx/files/latest/download
+RUN wget -O wikindx.tar.bz2 https://phoenixnap.dl.sourceforge.net/project/wikindx/6.4.9/wikindx_6.4.9.tar.bz2
 RUN tar jxf wikindx.tar.bz2
 RUN cp wikindx/config.php.dist wikindx/config.php
 COPY create.sql .
