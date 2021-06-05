@@ -7,9 +7,37 @@ if [ ! -d /var/lib/mysql/wikindx6 ] ; then
   mysql -u root < create.sql
 fi
 
-if [ ! -d /var/www/html/wikindx ]; then
-  mv /home/wikindx /var/www/html/
+
+# for updating from old docker container
+if [ -e /home/wikindx/index.php ]; then
+  echo -n "found application in config directory ..."
+  mv /home/wikindx/config.php /tmp/
+  rm /home/wikindx/* -rf
+  mv /tmp/config.php /home/wikindx/config.php
+  chown -R www-data.www-data /home/wikindx
+  echo "removed"
+fi
+
+# make sure a configuration file exists
+if [ ! -e /home/wikindx/config.php ]; then
+  echo "no configuration file yet exist ..."
+  cp /var/www/html/config.php.dist /home/wikindx/config.php
+  chown -R www-data.www-data /home/wikindx
+  echo "created"
+fi
+
+# make sure application is unpacked
+if [ ! -e /var/www/html/wikindx/index.php ]; then
+  cd /var/www/html
+  tar jxf wikindx.tar.bz2
+fi
+
+# make sure configuration file is linked to application directory
+if [ ! -e /var/www/html/wikindx/config.php ]; then
+  echo "No link to configuration found in application directory ..."
+  ln -s /home/wikindx/config.php /var/www/html/wikindx/config.php
   chown -R www-data.www-data /var/www/html/wikindx
+  echo "created"
 fi
 
 docker-php-entrypoint apache2-foreground
