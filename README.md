@@ -1,5 +1,7 @@
 # docker-wikindx
 
+new image available @ https://gitea.federationhq.de/Container/wikindx.git
+
 ## Description
 
 This repository contains everything required to build a docker image for
